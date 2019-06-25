@@ -23,6 +23,7 @@ public class JobController {
 
     // The detail display for a given Job at URLs like /job?id=17
     @RequestMapping(value = "", method = RequestMethod.GET) ///job?id=X //@RequestMapping(value = "edit/{cheeseId}", method = RequestMethod.GET)
+    // "" in this code maps to '/job'. Somehow able to map to '/job?id={x}' from add method
     public String index(Model model, int id) { //grabs id from html file
         model.addAttribute("job", jobData.findById(id));
         //Job newJob = jobData.findById(id);
@@ -63,8 +64,8 @@ public class JobController {
         Job newJob = new Job(jobForm.getName(), jobData.getEmployers().findById(jobForm.getEmployerId()), jobData.getLocations().findById(jobForm.getLocationId()), jobData.getPositionTypes().findById(jobForm.getPositionTypeId()), jobData.getCoreCompetencies().findById(jobForm.getCoreCompetencyId()));
         //Create the new Job.^ If you don't write 'new' it will overlay the current instance of a Job object.
 
-        //Apple the getId method to the newJob object.
-        //jobId = newJob.getId();
+        //Apply the getId method to the newJob object.
+        //int aJobId = newJob.getId(); Array initializer is not allowed in return statement of method.
 
          //JobData data = new JobData();
 
@@ -73,7 +74,9 @@ public class JobController {
         //return "job?id={newJob.getId()}"; //return "redirect:";
         //System.out.println("Print line statement");
          //return "job-detail"; //return "redirect:";
-        return "redirect:/job/?id=" + newJob.getId();
+
+        return "redirect:/job?id=" + newJob.getId();
+        //Failed attempt: return "redirect:/job/?id=" + {aJobId}; //Array initializer is not allowed here
         //Here you are using redirect: to go to a webpage.
 
 
